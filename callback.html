@@ -1,14 +1,38 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Callback</title>
-  </head>
-  <body>
-    <h1>Login successful</h1>
-    <p>This is a placeholder for the redirect URI.</p>
-    <script>
-      // Simulate access token for demo purposes
-      console.log('Mock access token: abc123');
-    </script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok OAuth Callback</title>
+  <script>
+    window.onload = function() {
+      // Parse query parameters from URL
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
+      const error = params.get("error");
+
+      if (code) {
+        document.getElementById("message").innerText = "Authorization successful!";
+        document.getElementById("code").innerText = `Your TikTok code: ${code}`;
+        console.log("TikTok Authorization Code:", code);
+      } else if (error) {
+        document.getElementById("message").innerText = "Authorization failed.";
+        document.getElementById("code").innerText = `Error: ${error}`;
+      } else {
+        document.getElementById("message").innerText = "No authorization code received.";
+      }
+    };
+  </script>
+</head>
+<body>
+  <h1>TikTok OAuth Callback</h1>
+  <p id="message">Waiting for authorization...</p>
+  <p id="code"></p>
+  <p><strong>Next Steps:</strong></p>
+  <ul>
+    <li>Copy the authorization code above.</li>
+    <li>Use it in your backend to exchange for an access token.</li>
+    <li>If there’s an error, check your TikTok Developer settings.</li>
+  </ul>
+</body>
 </html>
